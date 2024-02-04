@@ -1,0 +1,39 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+    <main class="container p-4">
+        <div class="row">
+            <div class="col-md-4 offset-md-4 card card-body mx-auto">
+                <h1 class="text-secondary">{{ task.title }}</h1>
+
+                {% if error %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <strong>{{ error }}</strong>
+                </div>
+                {% endif %}
+                
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="btn btn-primary">Update</button>
+                </form>
+
+                <div class="d-flex mt-2">  
+                    <form action="{% url 'complete_task' task.id %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-secondary mx-2">Complete</button>
+                    </form>
+                
+                    <form action="{% url 'delete_task' task.id %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

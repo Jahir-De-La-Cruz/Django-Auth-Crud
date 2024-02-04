@@ -1,0 +1,26 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+    <main class="container">
+        <div class="row">
+            <div class="col-md-4 offset-md-4 mt-4">
+                <form action="/tasks/create/" method="POST" class="card card-body">
+                    <h1>Create Task</h1>
+
+                    {% if error %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <strong>{{ error }}</strong>
+                    </div>
+                    {% endif %}
+
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}
